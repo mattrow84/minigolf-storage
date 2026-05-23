@@ -564,7 +564,7 @@ export default function Home() {
                       }
                     }}
                     className={`
-                    h-16 w-16 rounded-full border-2
+                    h-14 w-14 md:h-16 md:w-16 rounded-full border-2
                     font-bold text-black
                     transition-all duration-200
                     hover:scale-110
@@ -578,7 +578,7 @@ export default function Home() {
                     }
                   >
                     <div className="flex flex-col items-center justify-center h-full leading-none">
-                      <span className="text-[9px] text-center break-words px-1">
+                      <span className="text-[7px] md:text-[9px] text-center break-words px-1">
                         {occupied
                           ? occupied
                           : pos}
