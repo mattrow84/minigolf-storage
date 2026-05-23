@@ -500,7 +500,7 @@ export default function Home() {
     {/* GRIGLIA */}
 
     <div className="overflow-x-auto mb-6 print-area">
-      <div className="grid grid-cols-8 gap-3 w-fit mx-auto">
+      <div className="grid grid-cols-8 gap-5 w-fit mx-auto">
         {rows.flatMap((row) =>
           Array.from(
             { length: 8 },
@@ -540,7 +540,7 @@ export default function Home() {
                     }
                   }}
                   className={`
-                    h-16 w-16 rounded-xl md:rounded-full border-2
+                    h-14 w-14 rounded-full border-2
                     font-bold text-black
                     transition-all duration-200
                     hover:scale-105
@@ -553,7 +553,7 @@ export default function Home() {
                       : `Posizione vuota (${pos})`
                   }
                 >
-                  <div className="flex flex-col items-center justify-center h-full leading-tight">
+                  <div className="flex flex-col items-center justify-center h-full leading-none">
                     <span className="text-[6px] md:text-[9px] text-center break-words px-1">
                       {occupied
                         ? occupied
