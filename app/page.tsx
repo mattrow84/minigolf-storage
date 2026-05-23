@@ -572,7 +572,7 @@ export default function Home() {
 
     <div className="bg-white p-4 rounded-2xl shadow mb-6">
       <h2 className="font-bold text-lg mb-4">
-        Aggiungi pallina
+        + pallina
       </h2>
 
       <div className="flex gap-2 flex-wrap">
@@ -649,9 +649,9 @@ export default function Home() {
 
       <button
         onClick={printDrawer}
-        className="bg-black text-white px-4 py-2 rounded-xl"
+        className="bg-black text-white px-5 py-2 rounded-xl min-w-[120px]"
       >
-        Stampa cassetto
+        Stampa
       </button>
     </div>
   </main>
