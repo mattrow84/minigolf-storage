@@ -292,6 +292,28 @@ export default function Home() {
     window.print();
   };
 
+const exportCSV = () => {
+  const csv = Papa.unparse(
+    balls.map((ball) => ({
+      name: ball.name,
+      drawer: ball.drawer,
+      position: ball.position,
+    }))
+  );
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "minigolf-backup.csv";
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
   const printStyles = `
 @media print {
 
@@ -500,6 +522,10 @@ export default function Home() {
     {/* GRIGLIA */}
 
     <div className="overflow-x-auto mb-6 print-area">
+      <div className="text-center text-3xl font-bold mb-6">
+        Cassetto {currentDrawer}
+      </div>
+  
       <div className="grid grid-cols-8 gap-5 w-fit mx-auto">
         {rows.flatMap((row) =>
           Array.from(
@@ -566,13 +592,16 @@ export default function Home() {
           )
         )}
       </div>
+      <div className="text-center text-lg font-semibold mt-6">
+        {currentDrawerCount} / 64 palline
+      </div>
     </div>
 
     {/* AGGIUNGI */}
 
     <div className="bg-white p-4 rounded-2xl shadow mb-6">
       <h2 className="font-bold text-lg mb-4">
-        + pallina
+        Aggiungi PALLINA
       </h2>
 
       <div className="flex gap-2 flex-wrap">
@@ -648,11 +677,19 @@ export default function Home() {
       </label>
 
       <button
-        onClick={printDrawer}
-        className="bg-black text-white px-5 py-2 rounded-xl min-w-[120px]"
-      >
-        Stampa
+        onClick={exportCSV}
+        className="bg-red-500 text-white px-5 py-2 rounded-xl min-w-[120px]">
+        Backup CSV
+        
       </button>
+      
+      <button
+        onClick={printDrawer}
+        className="bg-blue-600 text-white px-5 py-2 rounded-xl min-w-[120px]">
+        Stampa CASSETTO
+      </button>
+
+      
     </div>
   </main>
 );
