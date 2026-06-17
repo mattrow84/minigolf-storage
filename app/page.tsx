@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Papa from "papaparse";
 
-const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
+const rows = ["H", "G", "F", "E", "D", "C", "B", "A"];
 
 const drawerColors = [
   "bg-blue-500",
