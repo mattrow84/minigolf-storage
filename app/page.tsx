@@ -84,8 +84,17 @@ export default function Home() {
   );
 
   useEffect(() => {
-    loadBalls();
-  }, []);
+  const init = async () => {
+    const { data } =
+      await supabase.auth.getSession();
+    if (!data.session) {
+      await supabase.auth.signInAnonymously();
+    }
+    await loadBalls();
+  };
+
+  init();
+}, []);
 
   useEffect(() => {
     updateDrawerPositions();
@@ -310,7 +319,7 @@ const exportCSV = () => {
   const link = document.createElement("a");
 
   const now = new Date();
-  
+
   link.href = url;
   link.download =
   `minigolf-backup-${
