@@ -45,11 +45,23 @@ type BallType = {
 type PositionsType = Record<string, string>;
 
 export default function Home() {
+
+  const APP_PASSWORD = "Matteo84";
+
+  const [isAuthenticated, setIsAuthenticated] =
+    useState(false);
+
+  const [password, setPassword] =
+    useState("");
+
   const [selected, setSelected] = useState("");
+
   const [search, setSearch] = useState("");
 
   const [balls, setBalls] = useState<
+
     BallType[]
+
   >([]);
 
   const [positions, setPositions] =
@@ -82,6 +94,15 @@ export default function Home() {
         .toLowerCase()
         .includes(search.toLowerCase())
   );
+
+  useEffect(() => {
+    const saved =
+      localStorage.getItem("authenticated");
+
+    if (saved === "true") {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   useEffect(() => {
   const init = async () => {
@@ -329,7 +350,7 @@ const exportCSV = () => {
   URL.revokeObjectURL(url);
 };
 
-  const printStyles = `
+const printStyles = `
 @media print {
 
   body * {
@@ -350,7 +371,49 @@ const exportCSV = () => {
 }
 `;
 
+if (!isAuthenticated) {
   return (
+    <main className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-2xl shadow w-80">
+        <h1 className="text-xl font-bold mb-4">
+          MiniGolf Storage
+        </h1>
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          className="border p-3 rounded-xl w-full mb-3"
+        />
+
+        <button
+          onClick={() => {
+            if (
+              password === APP_PASSWORD
+            ) {
+              localStorage.setItem(
+                "authenticated",
+                "true"
+              );
+
+              setIsAuthenticated(true);
+            } else {
+              alert("Password errata");
+            }
+          }}
+          className="bg-blue-600 text-white w-full p-3 rounded-xl"
+        >
+          Accedi
+        </button>
+      </div>
+    </main>
+  );
+}
+
+return (
   <main
     className={`
       min-h-screen p-4 md:p-6 transition-colors duration-500
