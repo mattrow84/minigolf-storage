@@ -308,6 +308,9 @@ const exportCSV = () => {
   const url = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
+
+  const now = new Date();
+  
   link.href = url;
   link.download =
   `minigolf-backup-${
