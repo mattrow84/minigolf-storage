@@ -309,7 +309,10 @@ const exportCSV = () => {
 
   const link = document.createElement("a");
   link.href = url;
-  link.download = "minigolf-backup.csv";
+  link.download =
+  `minigolf-backup-${
+    now.toISOString().replace(/[:.]/g, "-")
+  }.csv`;
   link.click();
   URL.revokeObjectURL(url);
 };
