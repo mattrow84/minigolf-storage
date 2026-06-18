@@ -82,6 +82,9 @@ export default function Home() {
   const [moveDrawer, setMoveDrawer] =
     useState("");
 
+  const [editName, setEditName] =
+    useState("");
+
   const totalBalls = balls.length;
 
   const currentDrawerCount = balls.filter(
@@ -293,6 +296,31 @@ export default function Home() {
     setMovePosition("");
     setMoveDrawer("");
   };
+
+  const renameBall = async () => {
+    if (!selected || !editName) {
+      alert("Inserisci un nome");
+      return;
+    }
+
+  const { error } = await supabase
+    .from("balls")
+    .update({
+      name: editName,
+    })
+    .eq("position", selected)
+    .eq("drawer", currentDrawer);
+
+  if (error) {
+    console.error(error);
+    alert("Errore modifica");
+    return;
+  }
+
+  await loadBalls();
+  setEditName("");
+  alert("Nome aggiornato");
+};
 
   const deleteBall = async () => {
     const confirmDelete = confirm(
@@ -544,6 +572,25 @@ return (
                 <div className="font-bold text-lg">
                   {positions[selected]}
                 </div>
+              </div>
+
+              <div className="flex gap-2 mt-3 flex-wrap">
+                <input
+                  type="text"
+                  placeholder="Nuovo nome"
+                  value={editName}
+                  onChange={(e) =>
+                    setEditName(e.target.value)
+                  }
+                  className="border p-2 rounded-xl"
+                />
+
+                <button
+                  onClick={renameBall}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-xl"
+                >
+                  Rinomina
+                </button>
               </div>
 
               <div className="flex gap-2 flex-wrap">
