@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Papa from "papaparse";
 
-const rows = ["H", "G", "F", "E", "D", "C", "B", "A"];
+const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 const drawerColors = [
   "bg-blue-500",
@@ -605,11 +605,12 @@ return (
       </div>
   
       <div className="grid grid-cols-8 gap-5 w-fit mx-auto">
-        {rows.flatMap((row) =>
-          Array.from(
-            { length: 8 },
-            (_, i) => {
-              const pos = `${row}${i + 1}`;
+        {Array.from(
+          { length: 8 },
+          (_, rowIndex) =>
+            rows.map((letter) => {
+              const pos =
+                `${letter}${8 - rowIndex}`;
 
               const occupied =
                 positions[pos];
@@ -666,8 +667,7 @@ return (
                   </div>
                 </button>
               );
-            }
-          )
+            })
         )}
       </div>
       <div className="text-center text-lg font-semibold mt-6">
